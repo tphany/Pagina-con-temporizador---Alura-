@@ -29,29 +29,26 @@ inputMusicaEnfoque.addEventListener('change', () => {
     }
 });
 
-
-botonCorto.addEventListener('click', () => {
-    tiempoTranscurridoEnSegundos = 300
-    cambiarContexto('descanso-corto');
-    botonCorto.classList.add('active');
-});
-
 botonEnfoque.addEventListener('click', () => {
-    tiemtiempoTranscurridoEnSegundos = 1500
+    tiempoTranscurridoEnSegundos = 1500;
     cambiarContexto('enfoque');
     botonEnfoque.classList.add('active');
 });
 
+botonCorto.addEventListener('click', () => {
+    tiempoTranscurridoEnSegundos = 300;
+    cambiarContexto('descanso-corto');
+    botonCorto.classList.add('active');
+});
+
 botonLargo.addEventListener('click', () => {
-    tiempoTranscurridoEnSegundos = 900
+    tiempoTranscurridoEnSegundos = 900;
     cambiarContexto('descanso-largo');
     botonLargo.classList.add('active');
 });
 
-
 function cambiarContexto(contexto) {
-
-    mostrarTiempo()
+    mostrarTiempo();
     botones.forEach(function (botonContexto){
         botonContexto.classList.remove('active');
     });
@@ -86,11 +83,8 @@ const cuentaRegresiva = () => {
         reiniciar();
         return;
     }
-    textoIniciarPausar.textContent = "Pausar" /*textContent lo usamos cuando queremos agregar texto a nuestro html*/
-    iconoIniciarPausar.setAttribute ('src', `imagenes/pause.png`) /*manera correcta de insertar un nuevo icono con setAttribute*/
-    tiempoTranscurridoEnSegundos -= 1
-    mostrarTiempo()
-
+    tiempoTranscurridoEnSegundos -= 1;
+    mostrarTiempo();
 };
 
 botonIniciarPausar.addEventListener('click', iniciarOpausar);
@@ -103,20 +97,21 @@ function iniciarOpausar() {
     }
     audioPlay.play();
     idIntervalo = setInterval(cuentaRegresiva, 1000);
-   
+    textoIniciarPausar.textContent = "Pausar";
+    iconoIniciarPausar.setAttribute('src', `/imagenes/pause.png`);
 }
 
 function reiniciar() {
-    clearInterval(idIntervalo);
+    clearInterval(idIntervalo); 
+    textoIniciarPausar.textContent = "Comenzar";
+    iconoIniciarPausar.setAttribute('src', `/imagenes/play_arrow.png`);
     idIntervalo = null;
-    textoIniciarPausar.textContent = "Comenzar"
-    iconoIniciarPausar.setAttribute ('src',`imagenes/play_arrow.png`)
 }
 
 function mostrarTiempo() {
-    const tiempo = new Date (tiempoTranscurridoEnSegundos * 1000)
-    const tiempoFormateado = tiempo.toLocaleTimeString ('es-CL',{minute:'2-digit', second:'2-digit'})
-    tiempoEnPantalla.innerHTML = `${tiempoFormateado}`
+    const tiempo = new Date(tiempoTranscurridoEnSegundos * 1000);
+    const tiempoFormateado = tiempo.toLocaleTimeString('es-ES', {minute: '2-digit', second: '2-digit'});
+    tiempoEnPantalla.innerHTML = `${tiempoFormateado}`;
 }
 
-mostrarTiempo()
+mostrarTiempo();
